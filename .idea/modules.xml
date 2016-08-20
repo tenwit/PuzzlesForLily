@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2019564829/PuzzlesForLily.iml" filepath="$PROJECT_DIR$/.idea/modules/-2019564829/PuzzlesForLily.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2019564829/PuzzlesForLily_main.iml" filepath="$PROJECT_DIR$/.idea/modules/-2019564829/PuzzlesForLily_main.iml" group="PuzzlesForLily" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2019564829/PuzzlesForLily_test.iml" filepath="$PROJECT_DIR$/.idea/modules/-2019564829/PuzzlesForLily_test.iml" group="PuzzlesForLily" />
+    </modules>
+  </component>
+</project>
