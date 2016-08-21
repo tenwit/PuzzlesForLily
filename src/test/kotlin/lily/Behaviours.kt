@@ -1,13 +1,9 @@
 package lily
 
-/**
- * // TODO class Javadoc
- *
- * @author tenwit
- */
+/*
 import cucumber.api.CucumberOptions
 import cucumber.api.junit.Cucumber
-import org.junit.runner.RunWith
+import org.junit.jupit
 
 [RunWith(value = javaClass<Cucumber>())]
 [CucumberOptions(
@@ -16,3 +12,4 @@ features = array("classpath:features")
 )]
 class CucumberTest {
 }
+*/
