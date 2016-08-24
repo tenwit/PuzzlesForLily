@@ -1,15 +1,15 @@
 package lily
 
-/*
 import cucumber.api.CucumberOptions
 import cucumber.api.junit.Cucumber
-import org.junit.jupit
+import org.junit.runner.RunWith
 
-[RunWith(value = javaClass<Cucumber>())]
-[CucumberOptions(
-format = array("pretty"),
-features = array("classpath:features")
-)]
-class CucumberTest {
+//@ExtendWith(Cucumber::class)
+@CucumberOptions(
+        format = arrayOf("pretty"),
+        features = arrayOf("classpath:features")
+)
+@RunWith(Cucumber::class)
+class Cucumber {
 }
-*/
+
