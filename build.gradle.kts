@@ -7,6 +7,7 @@ buildscript {
     extra["junitJupiterVersion"] = "5.0.0-M2"
     extra["junitVintageVersion"] = "4.12.0-M2"
     extra["cucumberJvmVersion"] = "1.2.4"
+    extra["assertjVersion"] = "3.5.2"
 
     repositories {
         gradleScriptKotlin()
@@ -63,4 +64,6 @@ dependencies {
     testCompile("info.cukes:cucumber-java:${extra["cucumberJvmVersion"]}")
     testCompile("info.cukes:cucumber-java8:${extra["cucumberJvmVersion"]}")
     testCompile("info.cukes:cucumber-junit:${extra["cucumberJvmVersion"]}")
+
+    testCompile("org.assertj:assertj-core:${extra["assertjVersion"]}")
 }
