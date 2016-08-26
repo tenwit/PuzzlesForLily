@@ -30,7 +30,7 @@ apply {
 }
 
 configure<ApplicationPluginConvention> {
-    mainClassName = "demo.HelloKt"
+    mainClassName = "lily.Game"
 }
 
 configure<JavaPluginConvention> {
