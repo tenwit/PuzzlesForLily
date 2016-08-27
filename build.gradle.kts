@@ -22,6 +22,7 @@ buildscript {
 }
 
 apply {
+    plugin("java")
     plugin("kotlin")
     plugin("idea")
     plugin("eclipse")

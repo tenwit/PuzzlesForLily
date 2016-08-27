@@ -10,6 +10,6 @@ import org.junit.runner.RunWith
         features = arrayOf("classpath:features")
 )
 @RunWith(Cucumber::class)
-class Cucumber {
+class Behaviours {
 }
 
