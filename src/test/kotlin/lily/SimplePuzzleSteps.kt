@@ -42,7 +42,7 @@ class SimplePuzzleSteps {
         try {
             val out = ByteArrayOutputStream()
             System.setOut(PrintStream(out))
-            State.game.prompt()
+            submitAnswer("")
             assertThat(out.toString()).contains(actor)
         } finally {
             System.setOut(originalOut)
@@ -53,19 +53,13 @@ class SimplePuzzleSteps {
     fun newGame(actor: String) {
         State.game.newPuzzle()
         game.player = actor
-        State.game.prompt()
+        submitAnswer("")
     }
 
     @When("^(?:\\p{Alpha}+) enters the (i?n?correct) answer$")
     fun answerPuzzle(answerType: String) {
-        val originalIn = System.`in`
         val isCorrect = answerType == "correct"
-        try {
-            System.setIn(ByteArrayInputStream((if (isCorrect) State.game.currentPuzzle.solution else "83f932").toByteArray()))
-            State.game.getAnswer()
-        } finally {
-            System.setIn(originalIn)
-        }
+        submitAnswer(if (isCorrect) State.game.currentPuzzle.solution else "83f932")
     }
 
     @Then("^A congratulatory message is presented to (\\p{Alpha}+)$")
@@ -97,6 +91,16 @@ class SimplePuzzleSteps {
                     .contains("not quite")
         } finally {
             System.setOut(originalOut)
+        }
+    }
+
+    private fun submitAnswer(answer: String) {
+        val originalIn = System.`in`
+        try {
+            System.setIn(ByteArrayInputStream(answer.toByteArray()))
+            State.game.getAnswer()
+        } finally {
+            System.setIn(originalIn)
         }
     }
 

@@ -24,12 +24,9 @@ class Puzzle(val leftValue1 : Int, val op : MathOperator, val leftValue2 : Int) 
 
     fun present(): String {
         val toPresent = StringBuilder()
-        toPresent.append(if (obfuscatedPart == LEFT_VALUE1) "X" else leftValue1)
-        toPresent.append(" ")
-        toPresent.append(if (obfuscatedPart == OPERATOR) "?" else op.symbol)
-        toPresent.append(" ")
-        toPresent.append(if (obfuscatedPart == LEFT_VALUE2) "X" else leftValue2)
-        toPresent.append(" = ")
+        toPresent.append(if (obfuscatedPart == LEFT_VALUE1) "X" else leftValue1).append(" ")
+        toPresent.append(if (obfuscatedPart == OPERATOR) "?" else op.symbol).append(" ")
+        toPresent.append(if (obfuscatedPart == LEFT_VALUE2) "X" else leftValue2).append(" = ")
         toPresent.append(if (obfuscatedPart == RIGHT_VALUE) "X" else rightValue)
         return toPresent.toString()
     }
@@ -41,20 +38,36 @@ class Puzzle(val leftValue1 : Int, val op : MathOperator, val leftValue2 : Int) 
 
     var submittedAnswer = ""
     val rightValue = op.apply(leftValue1, leftValue2)
-    val obfuscatedPart = EquationElement.values()[(Math.random() * EquationElement.values().size).toInt()]
+    val obfuscatedPart = pickPartToObfuscate()
     val solution: String
+        get() = when (obfuscatedPart) {
+            LEFT_VALUE1 -> leftValue1.toString()
+            OPERATOR -> op.symbol.toString()
+            LEFT_VALUE2 -> leftValue2.toString()
+            RIGHT_VALUE -> rightValue.toString()
+        }
+
+    val isSolved: Boolean
         get() {
             return when (obfuscatedPart) {
-                LEFT_VALUE1 -> leftValue1.toString()
-                OPERATOR -> op.symbol.toString()
-                LEFT_VALUE2 -> leftValue2.toString()
-                RIGHT_VALUE -> rightValue.toString()
+                LEFT_VALUE1 -> leftValue1.toString() == submittedAnswer
+                OPERATOR -> op.isEquivalentTo(submittedAnswer)
+                LEFT_VALUE2 -> leftValue2.toString() == submittedAnswer
+                RIGHT_VALUE -> rightValue.toString() == submittedAnswer
             }
         }
-    val isSolved: Boolean
-        get() = submittedAnswer == solution
 
     override fun toString(): String {
         return "$leftValue1 ${op.symbol} $leftValue2 = $rightValue"
+    }
+
+    private fun pickPartToObfuscate(): EquationElement {
+        val choice = Math.random()
+        return when {
+            choice < 0.25 -> LEFT_VALUE1
+            choice < 0.35 -> OPERATOR
+            choice < 0.60 -> LEFT_VALUE2
+            else -> RIGHT_VALUE
+        }
     }
 }

@@ -1,5 +1,12 @@
+import org.gradle.api.tasks.JavaExec
+import org.gradle.jvm.tasks.Jar
+import java.lang.System
+
 //import org.gradle.api.plugins.*
 //import org.gradle.script.lang.kotlin.*
+group = "lily"
+
+val mainClass = "lily.Game"
 
 buildscript {
     extra["springBootVersion"] = "1.4.0.RC1"
@@ -31,12 +38,25 @@ apply {
 }
 
 configure<ApplicationPluginConvention> {
-    mainClassName = "lily.Game"
+    mainClassName = mainClass
+}
+
+tasks.withType<JavaExec>  {
+    setStandardInput(System.`in`)
 }
 
 configure<JavaPluginConvention> {
     setSourceCompatibility(1.8)
     setTargetCompatibility(1.8)
+}
+
+tasks.withType<Jar> {
+    from(the<JavaPluginConvention>().sourceSets.getByName("main").allSource)
+    manifest.attributes.apply {
+        put("Implementation-Title", name)
+        put("Implementation-Version", "0")
+        put("Main-Class", mainClass)
+    }
 }
 
 repositories {
@@ -49,6 +69,7 @@ repositories {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter")
     compile(kotlinModule("stdlib"))
+    testCompile(gradleTestKit())
     testCompile("org.springframework.boot:spring-boot-starter-test")
 
     // JUnit Jupiter API

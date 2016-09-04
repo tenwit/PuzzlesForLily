@@ -7,10 +7,14 @@ class Game(var player: String = "player") {
     companion object App {
         @JvmStatic fun main(args: Array<String>) {
             val game = Game(if (args.size > 0) args[0] else "player")
-            game.newPuzzle()
-            game.prompt()
-            game.getAnswer()
-            game.displayResult()
+            var keepPlaying = true
+            while (keepPlaying) {
+                game.newPuzzle()
+                game.getAnswer()
+                game.displayResult()
+                keepPlaying = game.prompt()
+            }
+            println("Thanks for playing, ${game.player}! You finished the game with ${game.score}.")
         }
     }
 
@@ -19,20 +23,32 @@ class Game(var player: String = "player") {
         return currentPuzzle
     }
 
-    fun prompt() {
+    fun getAnswer() {
         println("Ready, $player? Here's your puzzle:")
         println(currentPuzzle.present())
         print("What's the answer, $player? ")
-    }
-
-    fun getAnswer() {
         currentPuzzle.submit(readLine() ?: "")
     }
 
     fun displayResult() {
-        if (currentPuzzle.isSolved) println("Correct! Well done $player!")
-        else println("Ooo, not quite. Would you like to try again, $player?")
+        if (currentPuzzle.isSolved) {
+            score.correct()
+            println("Correct! Well done $player!")
+        }
+        else {
+            score.incorrect()
+            println("Ooo, not quite. Better luck next time $player!")
+        }
     }
 
-    var currentPuzzle : Puzzle = Puzzle.None
+    fun prompt() : Boolean {
+        println("You've got $score")
+        print("Would you like to play again, $player?")
+        val playAgain = (readLine() ?: "")
+        return truthyStrings.contains(playAgain.toLowerCase())
+    }
+
+    var currentPuzzle = Puzzle.None
+    var score = Score()
+    val truthyStrings = arrayOf("yes", "true", "sure", "ok", "yep", "y", "")
 }
