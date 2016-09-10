@@ -1,9 +1,7 @@
 import org.gradle.api.tasks.JavaExec
 import org.gradle.jvm.tasks.Jar
-import java.lang.System
+import lang.System
 
-//import org.gradle.api.plugins.*
-//import org.gradle.script.lang.kotlin.*
 group = "lily"
 
 val mainClass = "lily.Game"
@@ -17,6 +15,7 @@ buildscript {
     extra["assertjVersion"] = "3.5.2"
 
     repositories {
+        mavenLocal()
         gradleScriptKotlin()
         maven { setUrl("https://repo.spring.io/milestone") }
     }
@@ -34,6 +33,7 @@ apply {
     plugin("idea")
     plugin("eclipse")
     plugin("spring-boot")
+    plugin("org.junit.platform.gradle.plugin")
     plugin<ApplicationPlugin>()
 }
 
@@ -60,6 +60,7 @@ tasks.withType<Jar> {
 }
 
 repositories {
+    mavenLocal()
     gradleScriptKotlin()
     jcenter()
     mavenCentral()
@@ -81,7 +82,7 @@ dependencies {
 
     // TestEngine implementations (only needed at runtime)
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${extra["junitJupiterVersion"]}")    //JUnit5
-    testRuntime("org.junit.vintage:junit-vintage-engine:${extra["junitVintageVersion"]}")    //JUnit4
+    //testRuntime("org.junit.vintage:junit-vintage-engine:${extra["junitVintageVersion"]}")    //JUnit4
 
     testCompile("info.cukes:cucumber-java:${extra["cucumberJvmVersion"]}")
     testCompile("info.cukes:cucumber-java8:${extra["cucumberJvmVersion"]}")
