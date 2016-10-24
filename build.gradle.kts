@@ -1,7 +1,7 @@
 import org.gradle.api.tasks.JavaExec
 import org.gradle.jvm.tasks.Jar
-
-import org.jetbrains.dokka.SourceLinkDefinition
+import org.jetbrains.dokka.gradle.DokkaPlugin
+import ratpack.gradle.RatpackPlugin
 
 group = "lily"
 
@@ -14,6 +14,8 @@ buildscript {
     extra["cucumberJvmVersion"] = "1.2.4"
     extra["assertjVersion"] = "3.5.2"
     extra["dokkaVersion"] = "0.9.9"
+    extra["ratpackVersion"] = "1.4.2"
+    extra["rxVersion"] = "0.60.0"
 
     repositories {
         mavenLocal()
@@ -25,6 +27,7 @@ buildscript {
         classpath(kotlinModule("gradle-plugin"))
         classpath("org.junit.platform:junit-platform-gradle-plugin:${extra["junitPlatformVersion"]}")
         classpath("org.jetbrains.dokka:dokka-gradle-plugin:${extra["dokkaVersion"]}")
+        classpath("io.ratpack:ratpack-gradle:${extra["ratpackVersion"]}")
     }
 }
 
@@ -32,9 +35,9 @@ apply {
     plugin("java")
     plugin("kotlin")
     plugin("idea")
-    plugin("eclipse")
+    plugin<RatpackPlugin>()
     plugin("org.junit.platform.gradle.plugin")
-    plugin("org.jetbrains.dokka")
+    plugin<DokkaPlugin>()
     plugin<ApplicationPlugin>()
 }
 
@@ -84,6 +87,10 @@ repositories {
 
 dependencies {
     compile(kotlinModule("stdlib"))
+    compile("io.reactivex:rxkotlin:${extra["rxVersion"]}")
+
+    // Test dependencies
+
     testCompile(gradleTestKit())
 
     // JUnit Jupiter API
