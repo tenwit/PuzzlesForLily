@@ -51,7 +51,7 @@ class Puzzle(val leftValue1 : Int, val op : MathOperator, val leftValue2 : Int) 
         get() {
             return when (obfuscatedPart) {
                 LEFT_VALUE1 -> leftValue1.toString() == submittedAnswer
-                OPERATOR -> op.isEquivalentTo(submittedAnswer)
+                OPERATOR -> MathOperator.tryParse(submittedAnswer) == op
                 LEFT_VALUE2 -> leftValue2.toString() == submittedAnswer
                 RIGHT_VALUE -> rightValue.toString() == submittedAnswer
             }

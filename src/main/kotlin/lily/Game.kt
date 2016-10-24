@@ -6,7 +6,7 @@ package lily
 class Game(var player: String = "player") {
     companion object App {
         @JvmStatic fun main(args: Array<String>) {
-            val game = Game(if (args.size > 0) args[0] else "player")
+            val game = Game(if (args.isNotEmpty()) args[0] else "player")
             var keepPlaying = true
             while (keepPlaying) {
                 game.newPuzzle()

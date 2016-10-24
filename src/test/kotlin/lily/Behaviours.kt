@@ -5,8 +5,10 @@ import cucumber.runtime.Runtime
 import cucumber.runtime.RuntimeOptionsFactory
 import cucumber.runtime.io.MultiLoader
 import cucumber.runtime.io.ResourceLoaderClassFinder
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.util.stream.Stream
 
@@ -15,6 +17,8 @@ import java.util.stream.Stream
         features = arrayOf("classpath:features")
 )
 class Behaviours {
+    @Test
+    fun x() { Assertions.assertThat(1).isLessThan(2) }
     @TestFactory
     fun loadCucumberTests() : Stream<DynamicTest> {
         val options = RuntimeOptionsFactory(Behaviours::class.java).create()

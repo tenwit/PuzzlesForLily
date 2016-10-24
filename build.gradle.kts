@@ -1,29 +1,30 @@
 import org.gradle.api.tasks.JavaExec
 import org.gradle.jvm.tasks.Jar
-import lang.System
+
+import org.jetbrains.dokka.SourceLinkDefinition
 
 group = "lily"
 
 val mainClass = "lily.Game"
 
 buildscript {
-    extra["springBootVersion"] = "1.4.0.RC1"
     extra["junitPlatformVersion"] = "1.0.0-M2"
     extra["junitJupiterVersion"] = "5.0.0-M2"
     extra["junitVintageVersion"] = "4.12.0-M2"
     extra["cucumberJvmVersion"] = "1.2.4"
     extra["assertjVersion"] = "3.5.2"
+    extra["dokkaVersion"] = "0.9.9"
 
     repositories {
         mavenLocal()
+        jcenter()
         gradleScriptKotlin()
-        maven { setUrl("https://repo.spring.io/milestone") }
     }
 
     dependencies {
         classpath(kotlinModule("gradle-plugin"))
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${extra["springBootVersion"]}")
         classpath("org.junit.platform:junit-platform-gradle-plugin:${extra["junitPlatformVersion"]}")
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:${extra["dokkaVersion"]}")
     }
 }
 
@@ -32,16 +33,31 @@ apply {
     plugin("kotlin")
     plugin("idea")
     plugin("eclipse")
-    plugin("spring-boot")
     plugin("org.junit.platform.gradle.plugin")
+    plugin("org.jetbrains.dokka")
     plugin<ApplicationPlugin>()
 }
+
+//tasks.withType<Dokka> {
+//    setModuleName("lily")
+//    setOutputFormat("html")
+//    setOutputDirectory("$buildDir/javadoc")
+//    setProcessConfiguration(arrayOf("compile", "extra"))
+//    setIncludes(arrayOf("packages.md", "extra.md"))
+//    setSamples(arrayOf("samples/basic.kt", "samples/advanced.kt"))
+//    setLinkMapping(LinkMapping(
+//        dir = "src/main/kotlin",
+//        url = "https://github.com/cy6erGn0m/vertx3-lang-kotlin/blob/master/src/main/kotlin",
+//        suffix = "#L"
+//    ))
+//    sourceDirs = files("src/main/kotlin")
+//}
 
 configure<ApplicationPluginConvention> {
     mainClassName = mainClass
 }
 
-tasks.withType<JavaExec>  {
+tasks.withType<JavaExec> {
     setStandardInput(System.`in`)
 }
 
@@ -64,21 +80,15 @@ repositories {
     gradleScriptKotlin()
     jcenter()
     mavenCentral()
-    maven { setUrl("https://repo.spring.io/milestone") }
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter")
     compile(kotlinModule("stdlib"))
     testCompile(gradleTestKit())
-    testCompile("org.springframework.boot:spring-boot-starter-test")
 
     // JUnit Jupiter API
     testCompile("org.junit.jupiter:junit-jupiter-api:${extra["junitJupiterVersion"]}")
     testCompile("org.junit.platform:junit-platform-runner:${extra["junitPlatformVersion"]}")
-
-    // Spring extension for JUnit5
-    //testCompile(fileTree(mapOf("dir" to "libs", "include" to "*.jar"))
 
     // TestEngine implementations (only needed at runtime)
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${extra["junitJupiterVersion"]}")    //JUnit5
