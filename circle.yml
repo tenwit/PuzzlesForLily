@@ -1,9 +1,7 @@
 ## Customize the test machine
 machine:
-
 #  timezone:
 #    Pacific/Auckland # Currently only affects mysql, which isn't used
-
   java:
     version:
       openjdk8
@@ -11,12 +9,13 @@ machine:
 ## Customize dependencies
 dependencies:
   pre:
+    - mkdir -p ~/.sdkman/etc
+    - echo sdkman_auto_answer=true > ~/.sdkman/etc/config
     - curl -s "https://get.sdkman.io" | bash # I want SDKMAN!
-    - sdkman_auto_answer=true sdk install gradle
-    - sdkman_auto_answer=true sdk install kotlin
+    - sdk install gradle
+    - sdk install kotlin
   post:
     - ./gradlew build
-
 
 ## Customize test commands
 test:
