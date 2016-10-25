@@ -1,0 +1,25 @@
+## Customize the test machine
+machine:
+
+  timezone:
+    Pacific/Auckland
+
+  java:
+    version:
+      openjdk8
+
+## Customize dependencies
+dependencies:
+  pre:
+    - curl -s "https://get.sdkman.io" | bash # I want SDKMAN!
+    - sdk install gradle
+    - sdk install kotlin
+  post:
+    - ./gradlew build
+
+
+## Customize test commands
+test:
+  post:
+    - ./gradlew check
+
