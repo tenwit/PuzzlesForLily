@@ -4,6 +4,8 @@ machine:
   timezone:
     Pacific/Auckland
 
+  environment:
+    sdkman_auto_answer: true
   java:
     version:
       openjdk8
