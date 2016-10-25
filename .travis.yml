@@ -1,7 +1,7 @@
 language: groovy
 
 branches:
-  only: TravisCI
+  only: master
 
 jdk: oraclejdk8
 
