@@ -1,11 +1,9 @@
 ## Customize the test machine
 machine:
 
-  timezone:
-    Pacific/Auckland
+#  timezone:
+#    Pacific/Auckland # Currently only affects mysql, which isn't used
 
-  environment:
-    sdkman_auto_answer: true
   java:
     version:
       openjdk8
@@ -14,8 +12,8 @@ machine:
 dependencies:
   pre:
     - curl -s "https://get.sdkman.io" | bash # I want SDKMAN!
-    - sdk install gradle
-    - sdk install kotlin
+    - sdkman_auto_answer=true sdk install gradle
+    - sdkman_auto_answer=true sdk install kotlin
   post:
     - ./gradlew build
 
