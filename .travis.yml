@@ -3,6 +3,8 @@ language: groovy
 branches:
   only: TravisCI
 
+jdk: oraclejdk8
+
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 
@@ -15,5 +17,6 @@ before_install:
   - curl -s "https://get.sdkman.io" | bash # I want SDKMAN!
   - mkdir -p ~/.sdkman/etc
   - echo sdkman_auto_answer=true > ~/.sdkman/etc/config
+  - source ~/.sdkman/bin/sdkman-init.sh
   - sdk install gradle
   - sdk install kotlin
