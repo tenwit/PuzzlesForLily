@@ -12,20 +12,20 @@ machine:
     version: openjdk8
 
 ## Customize dependencies
-# dependencies:
+dependencies:
   # pre:
     # - curl -s "https://get.sdkman.io" | bash # I want SDKMAN!
     # - mkdir -p ~/.sdkman/etc
     # - echo sdkman_auto_answer=true > ~/.sdkman/etc/config
     # - sdk install gradle
     # - sdk install kotlin
-  # post:
-    # - ./gradlew assemble
+  post:
+    - ./gradlew assemble
 
 ## Customize test commands
 test:
   post:
-    # - ./gradlew check
+    - ./gradlew check
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
 
