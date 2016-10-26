@@ -1,7 +1,8 @@
 ## Customize the test machine
 general:
   branches:
-    only: master
+    only:
+      - master
 
 machine:
 #  timezone:
