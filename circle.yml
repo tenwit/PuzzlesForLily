@@ -1,4 +1,3 @@
-## Customize the test machine
 general:
   branches:
     only:
@@ -6,23 +5,13 @@ general:
       - CircleCI
 
 machine:
-#  timezone:
-#    Pacific/Auckland # Currently only affects mysql, which isn't used
   java:
     version: openjdk8
 
-## Customize dependencies
 dependencies:
-  # pre:
-    # - curl -s "https://get.sdkman.io" | bash # I want SDKMAN!
-    # - mkdir -p ~/.sdkman/etc
-    # - echo sdkman_auto_answer=true > ~/.sdkman/etc/config
-    # - sdk install gradle
-    # - sdk install kotlin
   post:
     - ./gradlew assemble
 
-## Customize test commands
 test:
   post:
     - ./gradlew check
