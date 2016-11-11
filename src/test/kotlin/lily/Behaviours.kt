@@ -10,7 +10,6 @@ import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
-import java.util.stream.Stream
 
 @CucumberOptions(
         format = arrayOf("pretty"),
@@ -20,7 +19,7 @@ class Behaviours {
     @Test
     fun x() { Assertions.assertThat(1).isLessThan(2) }
     @TestFactory
-    fun loadCucumberTests() : Stream<DynamicTest> {
+    fun loadCucumberTests() : Collection<DynamicTest> {
         val options = RuntimeOptionsFactory(Behaviours::class.java).create()
         val classLoader = Behaviours::class.java.classLoader
         val resourceLoader = MultiLoader(classLoader)
@@ -30,7 +29,7 @@ class Behaviours {
         return cucumberFeatures.map { feature ->
             dynamicTest(feature.gherkinFeature.name) {
                 feature.run(options.formatter(classLoader), options.reporter(classLoader), runtime)
-        } }.stream()
+        } }
     }
 }
 

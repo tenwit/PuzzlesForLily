@@ -7,7 +7,6 @@ import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
-import java.util.stream.Stream
 
 /**
  * // TODO class Javadoc
@@ -51,14 +50,14 @@ class MathOperatorTest {
     )
 
     @TestFactory
-    fun parsing(): Stream<DynamicTest> = testData.stream().map {
+    fun parsing(): Collection<DynamicTest> = testData.map {
             dynamicTest("${it.text} should parse to ${it.operator}") {
                 assertThat(MathOperator.parse(it.text)).isEqualTo(it.operator)
             }
         }
 
     @TestFactory
-    fun tryParsing(): Stream<DynamicTest> = testData.stream().map {
+    fun tryParsing(): Collection<DynamicTest> = testData.map {
         dynamicTest("${it.text} should parse to ${it.operator}") {
             assertThat(MathOperator.tryParse(it.text)).isEqualTo(it.operator)
         }
