@@ -5,6 +5,7 @@ import cucumber.runtime.Runtime
 import cucumber.runtime.RuntimeOptionsFactory
 import cucumber.runtime.io.MultiLoader
 import cucumber.runtime.io.ResourceLoaderClassFinder
+import cucumber.runtime.model.CucumberFeature
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
@@ -12,7 +13,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 
 @CucumberOptions(
-        format = arrayOf("pretty"),
+        plugin = arrayOf("pretty", "junit:cucumber-results.xml"),
         features = arrayOf("classpath:features")
 )
 class Behaviours {
@@ -26,10 +27,12 @@ class Behaviours {
         val classFinder = ResourceLoaderClassFinder(resourceLoader, classLoader)
         val runtime = Runtime(resourceLoader, classFinder, classLoader, options)
         val cucumberFeatures = options.cucumberFeatures(resourceLoader)
-        return cucumberFeatures.map { feature ->
+        return cucumberFeatures.map<CucumberFeature, DynamicTest> { feature ->
             dynamicTest(feature.gherkinFeature.name) {
-                feature.run(options.formatter(classLoader), options.reporter(classLoader), runtime)
-        } }
+                var reporter = options.reporter(classLoader)
+                feature.run(options.formatter(classLoader), reporter, runtime)
+            }
+        }
     }
 }
 

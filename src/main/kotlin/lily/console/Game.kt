@@ -1,4 +1,7 @@
-package lily
+package lily.console
+
+import lily.domain.Puzzle
+import lily.domain.Score
 
 /**
  * @author tenwit
@@ -25,7 +28,7 @@ class Game(var player: String = "player") {
 
     fun getAnswer() {
         println("Ready, $player? Here's your puzzle:")
-        println(currentPuzzle.present())
+        println(PuzzleView(currentPuzzle))
         print("What's the answer, $player? ")
         currentPuzzle.submit(readLine() ?: "")
     }

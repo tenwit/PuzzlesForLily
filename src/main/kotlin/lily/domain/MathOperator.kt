@@ -1,4 +1,4 @@
-package lily
+package lily.domain
 
 /**
  * Mathematical operators that can be used to build up maths puzzles.

@@ -1,7 +1,7 @@
-package lily
+package lily.domain
 
-import lily.EquationElement.*
-import lily.MathOperator.*
+import lily.domain.EquationElement.*
+import lily.domain.MathOperator.*
 
 /**
  * @author tenwit
@@ -22,15 +22,6 @@ class Puzzle(val leftValue1 : Int, val op : MathOperator, val leftValue2 : Int) 
         val None: Puzzle = Puzzle(0, PLUS, 0)
     }
 
-    fun present(): String {
-        val toPresent = StringBuilder()
-        toPresent.append(if (obfuscatedPart == LEFT_VALUE1) "X" else leftValue1).append(" ")
-        toPresent.append(if (obfuscatedPart == OPERATOR) "?" else op.symbol).append(" ")
-        toPresent.append(if (obfuscatedPart == LEFT_VALUE2) "X" else leftValue2).append(" = ")
-        toPresent.append(if (obfuscatedPart == RIGHT_VALUE) "X" else rightValue)
-        return toPresent.toString()
-    }
-
     fun submit(answer: String): Boolean {
         submittedAnswer = answer
         return isSolved
@@ -48,14 +39,7 @@ class Puzzle(val leftValue1 : Int, val op : MathOperator, val leftValue2 : Int) 
         }
 
     val isSolved: Boolean
-        get() {
-            return when (obfuscatedPart) {
-                LEFT_VALUE1 -> leftValue1.toString() == submittedAnswer
-                OPERATOR -> MathOperator.tryParse(submittedAnswer) == op
-                LEFT_VALUE2 -> leftValue2.toString() == submittedAnswer
-                RIGHT_VALUE -> rightValue.toString() == submittedAnswer
-            }
-        }
+        get() = submittedAnswer == solution
 
     override fun toString(): String {
         return "$leftValue1 ${op.symbol} $leftValue2 = $rightValue"

@@ -1,21 +1,23 @@
 import org.gradle.api.tasks.JavaExec
 import org.gradle.jvm.tasks.Jar
 import org.jetbrains.dokka.gradle.DokkaPlugin
+import org.jetbrains.dokka.gradle.DokkaTask
 import ratpack.gradle.RatpackPlugin
 
 group = "lily"
 
-val mainClass = "lily.Game"
+val mainClass = "lily.console.Game"
 
 buildscript {
     extra["junitPlatformVersion"] = "1.0.0-M2"
     extra["junitJupiterVersion"] = "5.0.0-M2"
     extra["junitVintageVersion"] = "4.12.0-M2"
-    extra["cucumberJvmVersion"] = "1.2.4"
+    extra["cucumberJvmVersion"] = "1.2.5"
     extra["assertjVersion"] = "3.5.2"
     extra["dokkaVersion"] = "0.9.9"
     extra["ratpackVersion"] = "1.4.2"
     extra["rxVersion"] = "0.60.0"
+    extra["guiceVersion"] = "4.1.0"
 
     repositories {
         mavenLocal()
@@ -41,20 +43,11 @@ apply {
     plugin<ApplicationPlugin>()
 }
 
-//tasks.withType<Dokka> {
-//    setModuleName("lily")
-//    setOutputFormat("html")
-//    setOutputDirectory("$buildDir/javadoc")
-//    setProcessConfiguration(arrayOf("compile", "extra"))
-//    setIncludes(arrayOf("packages.md", "extra.md"))
-//    setSamples(arrayOf("samples/basic.kt", "samples/advanced.kt"))
-//    setLinkMapping(LinkMapping(
-//        dir = "src/main/kotlin",
-//        url = "https://github.com/cy6erGn0m/vertx3-lang-kotlin/blob/master/src/main/kotlin",
-//        suffix = "#L"
-//    ))
-//    sourceDirs = files("src/main/kotlin")
-//}
+tasks.withType<DokkaTask> {
+    moduleName = "dokka"
+    outputFormat = "gfm"
+    outputDirectory = "$projectDir/wiki"
+}
 
 configure<ApplicationPluginConvention> {
     mainClassName = mainClass
@@ -88,6 +81,8 @@ repositories {
 dependencies {
     compile(kotlinModule("stdlib"))
     compile("io.reactivex:rxkotlin:${extra["rxVersion"]}")
+    compile("com.google.inject:guice:${extra["guiceVersion"]}")
+
 
     // Test dependencies
 

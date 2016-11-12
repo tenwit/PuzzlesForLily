@@ -1,7 +1,7 @@
-package lily
+package lily.domain
 
 /**
- * // TODO class Javadoc
+ * Tracks the player's results so far this session.
  *
  * @author tenwit
  */

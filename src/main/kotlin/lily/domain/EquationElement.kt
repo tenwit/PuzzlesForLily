@@ -1,7 +1,8 @@
-package lily
+package lily.domain
 
 /**
- * // TODO class Javadoc
+ * The types of elements in an equation.
+ * TODO Rework into a parse tree.
  *
  * @author tenwit
  */

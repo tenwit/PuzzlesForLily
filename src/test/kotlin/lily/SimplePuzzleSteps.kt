@@ -3,6 +3,9 @@ package lily
 import cucumber.api.java.en.Given
 import cucumber.api.java.en.Then
 import cucumber.api.java.en.When
+import lily.console.Game
+import lily.console.PuzzleView
+import lily.domain.Puzzle
 import org.assertj.core.api.Assertions.assertThat
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -25,12 +28,12 @@ class SimplePuzzleSteps {
         assertThat(State.game.currentPuzzle.toString())
                 .isNotEmpty()
                 .isNotEqualTo(Puzzle.None.toString())
-        println("$actor, your puzzle is ${State.game.currentPuzzle.present()}")
+        println("$actor, your puzzle is ${PuzzleView(game.currentPuzzle)}")
     }
 
     @Then("^the puzzle is an obfuscated equation$")
     fun assertPuzzleIsEquation() {
-        assertThat(State.game.currentPuzzle.present())
+        assertThat(PuzzleView(game.currentPuzzle).toString())
                 .matches("""[X\p{Digit}]+ [?+-x\u00f7] [X\p{Digit}]+ = [X\p{Digit}]+""")
                 .isNotEqualTo(State.game.currentPuzzle)
     }
@@ -51,7 +54,7 @@ class SimplePuzzleSteps {
 
     @Given("the game is waiting for an answer from (\\p{Alpha}+)")
     fun newGame(actor: String) {
-        State.game.newPuzzle()
+        game.newPuzzle()
         game.player = actor
         submitAnswer("")
     }

@@ -1,6 +1,6 @@
-package lily.puzzle
+package lily.domain.puzzle
 
-import lily.MathOperator
+import lily.domain.MathOperator
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.DynamicTest
@@ -9,8 +9,9 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 
 /**
- * // TODO class Javadoc
+ * Unit tests for the {MathOperator} class.
  *
+ * @see MathOperator
  * @author tenwit
  */
 class MathOperatorTest {
