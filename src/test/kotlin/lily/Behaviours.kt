@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 
 @CucumberOptions(
-        plugin = arrayOf("pretty", "junit:cucumber-results.xml"),
+        plugin = arrayOf("pretty"),
         features = arrayOf("classpath:features")
 )
 class Behaviours {
