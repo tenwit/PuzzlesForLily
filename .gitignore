@@ -1,8 +1,9 @@
+.gradle
 wiki
 .gitmodules
 *.iml
 *.jar
-.gradle
+!gradle-wrapper.jar
 /local.properties
 /.idea
 .DS_Store
