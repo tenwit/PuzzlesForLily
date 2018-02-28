@@ -1,0 +1,24 @@
+veresion: 2
+
+jobs:
+  test:
+    docker:
+      - image: circleci/java:8-jdk
+    steps:
+      - checkout
+      - run: ./gradlew check
+      - run: mkdir -p $CIRCLE_TEST_REPORTS/junit/
+      - run: find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+  build:
+    docker:
+      - image: circleci/java:8-jdk
+    steps:
+      - checkout
+      - run: ./gradlew assemble
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - test
+      - build

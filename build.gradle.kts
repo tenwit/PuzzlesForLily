@@ -9,9 +9,9 @@ group = "lily"
 val mainClass = "lily.console.Game"
 
 buildscript {
-    extra["junitPlatformVersion"] = "1.0.0-M3"
-    extra["junitJupiterVersion"] = "5.0.0-M3"
-    extra["junitVintageVersion"] = "4.12.0-M3"
+    extra["junitPlatformVersion"] = "1.0.0-M4"
+    extra["junitJupiterVersion"] = "5.0.0-M4"
+    extra["junitVintageVersion"] = "4.12.0-M4"
     extra["cucumberJvmVersion"] = "1.2.5"
     extra["assertjVersion"] = "3.5.2"
     extra["dokkaVersion"] = "0.9.9"
