@@ -17,8 +17,6 @@ import org.junit.jupiter.api.TestFactory
         features = arrayOf("classpath:features")
 )
 class Behaviours {
-    @Test
-    fun x() { Assertions.assertThat(1).isLessThan(2) }
     @TestFactory
     fun loadCucumberTests() : Collection<DynamicTest> {
         val options = RuntimeOptionsFactory(Behaviours::class.java).create()
